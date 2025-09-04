@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forest Cover Type Prediction</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="static/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-tree"></i> Forest Cover Prediction
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#prediction">Prediction</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#batch">Batch Predict</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="container text-center">
+            <h1 class="display-4 mb-4">Forest Cover Type Prediction</h1>
+            <p class="lead mb-4">AI-powered prediction system using a 5-step ChatGPT-style reasoning pipeline</p>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="model-status-card">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="status-item">
+                                    <i class="fas fa-brain fa-2x text-success"></i>
+                                    <h5>Model Status</h5>
+                                    <span id="model-status" class="badge bg-warning">Loading...</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="status-item">
+                                    <i class="fas fa-chart-line fa-2x text-primary"></i>
+                                    <h5>Accuracy</h5>
+                                    <span id="model-accuracy" class="badge bg-success">--</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="status-item">
+                                    <i class="fas fa-microchip fa-2x text-info"></i>
+                                    <h5>Device</h5>
+                                    <span id="device-info" class="badge bg-info">--</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container my-5">
+        <!-- Single Prediction Section -->
+        <section id="prediction" class="mb-5">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="card shadow">
+                        <div class="card-header bg-success text-white">
+                            <h4><i class="fas fa-tree"></i> Single Prediction</h4>
+                        </div>
+                        <div class="card-body">
+                            <form id="prediction-form">
+                                <div class="row">
+                                    <!-- Elevation Features -->
+                                    <div class="col-md-6">
+                                        <h6 class="text-success mb-3"><i class="fas fa-mountain"></i> Elevation &
+                                            Geography</h6>
+                                        <div class="mb-3">
+                                            <label for="elevation" class="form-label">Elevation (meters)</label>
+                                            <input type="number" class="form-control" id="elevation" name="elevation"
+                                                value="3000" min="1000" max="4500" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="aspect" class="form-label">Aspect (degrees)</label>
+                                            <input type="number" class="form-control" id="aspect" name="aspect"
+                                                value="180" min="0" max="360" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="slope" class="form-label">Slope (degrees)</label>
+                                            <input type="number" class="form-control" id="slope" name="slope" value="15"
+                                                min="0" max="90" required>
+                                        </div>
+                                    </div>
+
+                                    <!-- Distance Features -->
+                                    <div class="col-md-6">
+                                        <h6 class="text-primary mb-3"><i class="fas fa-route"></i> Distance Features
+                                        </h6>
+                                        <div class="mb-3">
+                                            <label for="horizontal_distance_to_hydrology" class="form-label">Distance to
+                                                Water (horizontal)</label>
+                                            <input type="number" class="form-control"
+                                                id="horizontal_distance_to_hydrology"
+                                                name="horizontal_distance_to_hydrology" value="300" min="0" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="vertical_distance_to_hydrology" class="form-label">Distance to
+                                                Water (vertical)</label>
+                                            <input type="number" class="form-control"
+                                                id="vertical_distance_to_hydrology"
+                                                name="vertical_distance_to_hydrology" value="50" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="horizontal_distance_to_roadways" class="form-label">Distance to
+                                                Roads</label>
+                                            <input type="number" class="form-control"
+                                                id="horizontal_distance_to_roadways"
+                                                name="horizontal_distance_to_roadways" value="1000" min="0" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="horizontal_distance_to_fire_points" class="form-label">Distance
+                                                to Fire Points</label>
+                                            <input type="number" class="form-control"
+                                                id="horizontal_distance_to_fire_points"
+                                                name="horizontal_distance_to_fire_points" value="2000" min="0" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Hillshade Features -->
+                                    <div class="col-md-6">
+                                        <h6 class="text-warning mb-3"><i class="fas fa-sun"></i> Hillshade</h6>
+                                        <div class="mb-3">
+                                            <label for="hillshade_9am" class="form-label">Hillshade 9am</label>
+                                            <input type="number" class="form-control" id="hillshade_9am"
+                                                name="hillshade_9am" value="200" min="0" max="255" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="hillshade_noon" class="form-label">Hillshade Noon</label>
+                                            <input type="number" class="form-control" id="hillshade_noon"
+                                                name="hillshade_noon" value="220" min="0" max="255" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="hillshade_3pm" class="form-label">Hillshade 3pm</label>
+                                            <input type="number" class="form-control" id="hillshade_3pm"
+                                                name="hillshade_3pm" value="140" min="0" max="255" required>
+                                        </div>
+                                    </div>
+
+                                    <!-- Wilderness Area -->
+                                    <div class="col-md-6">
+                                        <h6 class="text-info mb-3"><i class="fas fa-leaf"></i> Wilderness Area</h6>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="wilderness_area"
+                                                        id="wilderness1" value="1">
+                                                    <label class="form-check-label" for="wilderness1">Area 1</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="wilderness_area"
+                                                        id="wilderness2" value="2">
+                                                    <label class="form-check-label" for="wilderness2">Area 2</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="wilderness_area"
+                                                        id="wilderness3" value="3" checked>
+                                                    <label class="form-check-label" for="wilderness3">Area 3</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="wilderness_area"
+                                                        id="wilderness4" value="4">
+                                                    <label class="form-check-label" for="wilderness4">Area 4</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <h6 class="text-secondary mt-3 mb-2"><i class="fas fa-mountain"></i> Soil Type
+                                        </h6>
+                                        <select class="form-select" id="soil_type" name="soil_type" required>
+                                            <option value="10" selected>Type 10 (Common)</option>
+                                            <option value="1">Type 1</option>
+                                            <option value="2">Type 2</option>
+                                            <option value="3">Type 3</option>
+                                            <option value="4">Type 4</option>
+                                            <option value="5">Type 5</option>
+                                            <option value="6">Type 6</option>
+                                            <option value="7">Type 7</option>
+                                            <option value="8">Type 8</option>
+                                            <option value="9">Type 9</option>
+                                            <option value="11">Type 11</option>
+                                            <option value="12">Type 12</option>
+                                            <option value="13">Type 13</option>
+                                            <option value="14">Type 14</option>
+                                            <option value="15">Type 15</option>
+                                            <option value="16">Type 16</option>
+                                            <option value="17">Type 17</option>
+                                            <option value="18">Type 18</option>
+                                            <option value="19">Type 19</option>
+                                            <option value="20">Type 20</option>
+                                            <option value="21">Type 21</option>
+                                            <option value="22">Type 22</option>
+                                            <option value="23">Type 23</option>
+                                            <option value="24">Type 24</option>
+                                            <option value="25">Type 25</option>
+                                            <option value="26">Type 26</option>
+                                            <option value="27">Type 27</option>
+                                            <option value="28">Type 28</option>
+                                            <option value="29">Type 29</option>
+                                            <option value="30">Type 30</option>
+                                            <option value="31">Type 31</option>
+                                            <option value="32">Type 32</option>
+                                            <option value="33">Type 33</option>
+                                            <option value="34">Type 34</option>
+                                            <option value="35">Type 35</option>
+                                            <option value="36">Type 36</option>
+                                            <option value="37">Type 37</option>
+                                            <option value="38">Type 38</option>
+                                            <option value="39">Type 39</option>
+                                            <option value="40">Type 40</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="text-center mt-4">
+                                    <button type="submit" class="btn btn-success btn-lg">
+                                        <i class="fas fa-magic"></i> Predict Forest Cover Type
+                                    </button>
+                                    <button type="button" class="btn btn-outline-secondary ms-2" id="load-sample">
+                                        <i class="fas fa-random"></i> Load Sample Data
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Results Panel -->
+                <div class="col-lg-4">
+                    <div class="card shadow">
+                        <div class="card-header bg-primary text-white">
+                            <h5><i class="fas fa-chart-bar"></i> Prediction Results</h5>
+                        </div>
+                        <div class="card-body" id="results-panel">
+                            <div class="text-center text-muted">
+                                <i class="fas fa-tree fa-4x mb-3"></i>
+                                <p>Enter data and click predict to see results</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Presets -->
+                    <div class="card shadow mt-3">
+                        <div class="card-header bg-secondary text-white">
+                            <h6><i class="fas fa-cogs"></i> Quick Presets</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-outline-success btn-sm preset-btn" data-preset="high-elevation">
+                                    High Elevation Forest
+                                </button>
+                                <button class="btn btn-outline-success btn-sm preset-btn" data-preset="low-elevation">
+                                    Low Elevation Forest
+                                </button>
+                                <button class="btn btn-outline-success btn-sm preset-btn" data-preset="riparian">
+                                    Riparian Area
+                                </button>
+                                <button class="btn btn-outline-success btn-sm preset-btn" data-preset="dry-slope">
+                                    Dry Slope
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Batch Prediction Section -->
+        <section id="batch" class="mb-5">
+            <div class="card shadow">
+                <div class="card-header bg-info text-white">
+                    <h4><i class="fas fa-upload"></i> Batch Prediction</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="upload-area" id="upload-area">
+                                <div class="text-center">
+                                    <i class="fas fa-cloud-upload-alt fa-3x text-muted mb-3"></i>
+                                    <p class="lead">Drop CSV file here or click to upload</p>
+                                    <input type="file" id="csv-file" accept=".csv" style="display: none;">
+                                    <button class="btn btn-outline-primary"
+                                        onclick="document.getElementById('csv-file').click()">
+                                        Choose File
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <h6>CSV Format Requirements:</h6>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">54 columns total</li>
+                                <li class="list-group-item">Elevation, Aspect, Slope...</li>
+                                <li class="list-group-item">Wilderness Areas (1-4)</li>
+                                <li class="list-group-item">Soil Types (1-40)</li>
+                                <li class="list-group-item">Max 1000 rows</li>
+                            </ul>
+                            <button class="btn btn-sm btn-outline-secondary mt-2" id="download-template">
+                                <i class="fas fa-download"></i> Download Template
+                            </button>
+                        </div>
+                    </div>
+                    <div id="batch-results" class="mt-4" style="display: none;">
+                        <h5>Batch Results</h5>
+                        <div class="table-responsive">
+                            <table class="table table-striped" id="batch-results-table">
+                                <thead>
+                                    <tr>
+                                        <th>Row</th>
+                                        <th>Prediction</th>
+                                        <th>Confidence</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="mb-5">
+            <div class="card shadow">
+                <div class="card-header bg-dark text-white">
+                    <h4><i class="fas fa-info-circle"></i> About This System</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Forest Cover Types</h5>
+                            <div id="cover-types-info">
+                                <!-- Will be populated by JavaScript -->
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>Model Information</h5>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <strong>Algorithm:</strong> Optimized LightGBM Ensemble
+                                </li>
+                                <li class="list-group-item">
+                                    <strong>Features:</strong> 54 environmental variables
+                                </li>
+                                <li class="list-group-item">
+                                    <strong>Training Data:</strong> 15,120 samples
+                                </li>
+                                <li class="list-group-item">
+                                    <strong>Validation:</strong> 5-fold cross-validation
+                                </li>
+                                <li class="list-group-item">
+                                    <strong>Pipeline:</strong> 5-step ChatGPT reasoning
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container text-center">
+            <p>&copy; 2024 Forest Cover Type Prediction System. Powered by AI.</p>
+        </div>
+    </footer>
+
+    <!-- Loading Modal -->
+    <div class="modal fade" id="loadingModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <div class="spinner-border text-success" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p class="mt-3">Making prediction...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="static/script.js"></script>
+</body>
+
+</html>

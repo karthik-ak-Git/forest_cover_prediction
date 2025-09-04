@@ -1,0 +1,382 @@
+/* Custom styles for Forest Cover Prediction */
+
+:root {
+    --forest-green: #228B22;
+    --forest-dark: #006400;
+    --earth-brown: #8B4513;
+    --sky-blue: #87CEEB;
+    --grass-green: #9ACD32;
+}
+
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(135deg, var(--forest-green) 0%, var(--forest-dark) 100%);
+    color: white;
+    padding: 60px 0;
+    margin-bottom: 0;
+}
+
+.hero-section h1 {
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hero-section .lead {
+    font-size: 1.3rem;
+    font-weight: 300;
+}
+
+/* Model Status Card */
+.model-status-card {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 30px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.status-item {
+    text-align: center;
+    padding: 15px;
+}
+
+.status-item h5 {
+    margin: 15px 0 10px 0;
+    font-weight: 600;
+}
+
+.status-item .badge {
+    font-size: 0.9rem;
+    padding: 8px 12px;
+}
+
+/* Cards */
+.card {
+    border: none;
+    border-radius: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    border-radius: 15px 15px 0 0 !important;
+    border-bottom: none;
+    padding: 20px;
+}
+
+.card-header h4,
+.card-header h5,
+.card-header h6 {
+    margin: 0;
+    font-weight: 600;
+}
+
+/* Form Styling */
+.form-label {
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 8px;
+}
+
+.form-control,
+.form-select {
+    border-radius: 10px;
+    border: 2px solid #e9ecef;
+    padding: 12px 15px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--forest-green);
+    box-shadow: 0 0 0 0.2rem rgba(34, 139, 34, 0.25);
+}
+
+.form-check-input:checked {
+    background-color: var(--forest-green);
+    border-color: var(--forest-green);
+}
+
+/* Buttons */
+.btn {
+    border-radius: 10px;
+    font-weight: 600;
+    padding: 12px 25px;
+    transition: all 0.3s ease;
+}
+
+.btn-success {
+    background: linear-gradient(135deg, var(--forest-green) 0%, var(--forest-dark) 100%);
+    border: none;
+}
+
+.btn-success:hover {
+    background: linear-gradient(135deg, var(--forest-dark) 0%, var(--forest-green) 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(34, 139, 34, 0.4);
+}
+
+.btn-lg {
+    padding: 15px 35px;
+    font-size: 1.1rem;
+}
+
+/* Results Panel */
+#results-panel {
+    min-height: 400px;
+}
+
+.result-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.result-prediction {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.result-description {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.result-confidence {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 25px;
+    padding: 10px 20px;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.reasoning-steps {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 20px;
+    text-align: left;
+}
+
+.reasoning-steps h6 {
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.reasoning-steps ol {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.reasoning-steps li {
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+/* Upload Area */
+.upload-area {
+    border: 3px dashed #dee2e6;
+    border-radius: 15px;
+    padding: 40px;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.upload-area:hover {
+    border-color: var(--forest-green);
+    background-color: rgba(34, 139, 34, 0.05);
+}
+
+.upload-area.dragover {
+    border-color: var(--forest-green);
+    background-color: rgba(34, 139, 34, 0.1);
+}
+
+/* Preset buttons */
+.preset-btn {
+    transition: all 0.3s ease;
+}
+
+.preset-btn:hover {
+    background-color: var(--forest-green);
+    border-color: var(--forest-green);
+    color: white;
+    transform: translateX(5px);
+}
+
+/* Cover type badges */
+.cover-type-badge {
+    display: inline-block;
+    padding: 8px 15px;
+    margin: 5px;
+    border-radius: 20px;
+    font-weight: 600;
+    transition: transform 0.3s ease;
+}
+
+.cover-type-badge:hover {
+    transform: scale(1.05);
+}
+
+.cover-type-1 {
+    background: #FF6B6B;
+    color: white;
+}
+
+.cover-type-2 {
+    background: #4ECDC4;
+    color: white;
+}
+
+.cover-type-3 {
+    background: #45B7D1;
+    color: white;
+}
+
+.cover-type-4 {
+    background: #96CEB4;
+    color: white;
+}
+
+.cover-type-5 {
+    background: #FFEAA7;
+    color: #2d3436;
+}
+
+.cover-type-6 {
+    background: #DDA0DD;
+    color: white;
+}
+
+.cover-type-7 {
+    background: #98D8C8;
+    color: #2d3436;
+}
+
+/* Loading states */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 40px 0;
+    }
+
+    .hero-section h1 {
+        font-size: 2.5rem;
+    }
+
+    .model-status-card {
+        padding: 20px;
+    }
+
+    .status-item {
+        padding: 10px;
+        margin-bottom: 15px;
+    }
+
+    .btn-lg {
+        padding: 12px 25px;
+        font-size: 1rem;
+    }
+}
+
+/* Animation for results appearing */
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Progress bar for confidence */
+.confidence-bar {
+    height: 8px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.confidence-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #FFD93D, #6BCF7F);
+    border-radius: 4px;
+    transition: width 1s ease;
+}
+
+/* Table styling */
+.table {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table thead th {
+    background: var(--forest-green);
+    color: white;
+    border: none;
+    font-weight: 600;
+}
+
+.table tbody tr:hover {
+    background-color: rgba(34, 139, 34, 0.1);
+}
+
+/* Navbar customization */
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.navbar-nav .nav-link {
+    font-weight: 500;
+    margin: 0 10px;
+    transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    color: var(--grass-green) !important;
+}
+
+/* Footer */
+footer {
+    margin-top: auto;
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Section spacing */
+section {
+    scroll-margin-top: 80px;
+}
