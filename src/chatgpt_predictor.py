@@ -217,7 +217,7 @@ class ChatGPTStylePredictor:
                     f"🤖 {model_name}: Prediction = {predictions[0] + 1}, Confidence = {probabilities.max():.3f}")
 
             except Exception as e:
-                print(f"❌ {model_name} failed: {str(e)[:50]}...")
+                print(f"[ERROR] {model_name} failed: {str(e)[:50]}...")
                 continue
 
         # Ensemble reasoning
@@ -414,7 +414,7 @@ class ChatGPTStylePredictor:
             return final_explanation
 
         except Exception as e:
-            print(f"\\n❌ PREDICTION FAILED: {str(e)}")
+            print(f"\n[ERROR] PREDICTION FAILED: {str(e)}")
             return {'prediction': None, 'error': str(e)}
 
     def _engineer_features(self, df):
@@ -472,15 +472,15 @@ class ChatGPTStylePredictor:
             self.models = {'main_model': model_data['model']}
             self.scaler = model_data['scaler']
 
-            print(f"✅ Model loaded from {model_path}")
+            print(f"[SUCCESS] Model loaded from {model_path}")
 
         except Exception as e:
-            print(f"❌ Failed to load model: {e}")
+            print(f"[ERROR] Failed to load model: {e}")
 
     def add_model(self, model, model_name):
         """Add a model to the ensemble"""
         self.models[model_name] = model
-        print(f"✅ Added model: {model_name}")
+        print(f"[SUCCESS] Added model: {model_name}")
 
 
 # Test the prediction system

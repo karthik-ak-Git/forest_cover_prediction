@@ -1,4 +1,5 @@
 // Forest Cover Prediction Frontend JavaScript
+// Version: 1.1 - Fixed port configuration
 
 const API_BASE_URL = 'http://localhost:8001';
 
@@ -45,6 +46,7 @@ function setupEventListeners() {
 // Check API health
 async function checkApiHealth() {
     try {
+        console.log(`🌐 Attempting to connect to: ${API_BASE_URL}/health`);
         const response = await fetch(`${API_BASE_URL}/health`);
         const data = await response.json();
 

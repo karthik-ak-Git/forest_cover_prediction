@@ -140,9 +140,9 @@ async def startup_event():
             print("Loading optimized model data...")
             try:
                 optimized_model_data = joblib.load(optimized_path)
-                print(f"✅ Optimized model data loaded successfully")
+                print(f"[SUCCESS] Optimized model data loaded successfully")
             except Exception as e:
-                print(f"⚠️ Failed to load optimized model data: {e}")
+                print(f"[WARNING] Failed to load optimized model data: {e}")
                 optimized_model_data = None
 
         # Use standard model for predictor
@@ -152,10 +152,10 @@ async def startup_event():
             raise FileNotFoundError(f"Model file not found: {model_path}")
 
         predictor = ChatGPTStylePredictor(model_path)
-        print(f"✅ Predictor initialized with model: {model_path}")
+        print(f"[SUCCESS] Predictor initialized with model: {model_path}")
 
     except Exception as e:
-        print(f"❌ Error initializing predictor: {e}")
+        print(f"[ERROR] Error initializing predictor: {e}")
         predictor = None
 
 
